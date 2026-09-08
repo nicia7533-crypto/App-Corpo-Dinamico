@@ -27,8 +27,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Gerar o CorpoDinamico.exe
-        run: |
-          pyinstaller CorpoDinamico.spec --noconfirm
+        run: >
+          pyinstaller --onefile --console --name CorpoDinamico
+          --icon "assets/logo/logo-icone.ico"
+          --add-data "app/templates;app/templates"
+          --add-data "app/static;app/static"
+          --add-data "app/migrations;app/migrations"
+          --add-data "assets/logo;assets/logo"
+          main.py
 
       - name: Disponibilizar o .exe para download
         uses: actions/upload-artifact@v4
